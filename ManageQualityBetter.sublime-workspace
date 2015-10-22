@@ -15,54 +15,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "mqb/__init__.py",
-			"settings":
-			{
-				"buffer_size": 1,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "mqb/test/test_ReportService.py",
-			"settings":
-			{
-				"buffer_size": 255,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "mqb/app/__init__.py",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Windows).sublime-keymap",
-			"settings":
-			{
-				"buffer_size": 248,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/Default (Windows).sublime-keymap",
-			"settings":
-			{
-				"buffer_size": 456,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "mqb/app/services.py",
-			"settings":
-			{
-				"buffer_size": 71,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -175,11 +127,29 @@
 		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb",
 		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/app",
 		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test",
-		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test/functional"
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test/functional",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/tex"
 	],
 	"file_history":
 	[
+		"/C/Users/sruiz/Projects/plastex/INSTALL",
+		"/C/Users/sruiz/Projects/plastex/README",
+		"/C/Users/sruiz/Projects/plastex/TODO",
+		"/C/Users/sruiz/Projects/plastex/plasTeX/Renderers/Text/__init__.py",
+		"/C/Users/sruiz/Projects/plastex/Doc/README",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test/test_ReportService.py",
+		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/Default (Windows).sublime-keymap",
+		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/app/__init__.py",
 		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/app/services.py",
+		"/C/Users/sruiz/Projects/plastex/plasTeX/Packages/graphics.py",
+		"/C/Users/sruiz/Projects/plastex/plasTeX/Packages/color.py",
+		"/C/Users/sruiz/Projects/plastex/plasTeX/Packages/booktabs.py",
+		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Windows).sublime-keymap",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/.gitignore",
+		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/__init__.py",
 		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test/test_ReportService",
 		"/C/Users/sruiz/Projects/ProcesosAKO/procesosako/test/functional/index_controller_test.py",
 		"/C/Users/sruiz/Projects/ProcesosAKO/procesosako/__init__.py",
@@ -188,10 +158,8 @@
 		"/C/Users/sruiz/Projects/ProcesosAKO/procesosako/test/test_helper.py",
 		"/C/Users/sruiz/Projects/ProcesosAKO/procesosako/test/unit/test_helper.py",
 		"/C/Users/sruiz/Projects/ManageQualityBetter/QualityEngine.md",
-		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/__init__.py",
 		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/test/__init__.py",
 		"/C/Users/sruiz/Projects/ProcesosAKO/.gitignore",
-		"/C/Users/sruiz/Projects/ManageQualityBetter/mqb/app/__init__.py",
 		"/C/Users/sruiz/Projects/ProcesosAKO/procesosako/app/__init__.py",
 		"/C/Users/sruiz/Projects/ProcesosAKO/README.md",
 		"/C/Users/sruiz/Projects/ProcesosAKO/tasks.py",
@@ -239,8 +207,6 @@
 		"//netapp/srvfiles/home/sruiz/References/Slides/resources/SAPInformationSystem.svg",
 		"//netapp/srvfiles/home/sruiz/References/Slides/tmp.html",
 		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
-		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"//netapp/srvfiles/home/sruiz/Projects/TODO.txt",
 		"/C/cygwin64/home/sruiz/taskList/AKO/todo.cfg",
 		"/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/MarkdownEditing/Markdown (Standard).sublime-settings",
@@ -263,7 +229,7 @@
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -277,6 +243,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ctrl+k",
+			"\"ctr+k\"",
+			"ctr+k",
 			"bottleplate",
 			"Validation",
 			"Problem",
@@ -336,178 +305,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "mqb/__init__.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "mqb/test/test_ReportService.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 255,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								255,
-								255
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "mqb/app/__init__.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Windows).sublime-keymap",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 248,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/sruiz/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/Default (Windows).sublime-keymap",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 456,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								456,
-								456
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "mqb/app/services.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 71,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				}
 			]
 		}
 	],

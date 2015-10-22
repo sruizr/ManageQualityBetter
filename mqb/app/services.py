@@ -1,3 +1,5 @@
+from plasTeX import Base
+
 
 
 class ReportingService():
