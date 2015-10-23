@@ -1,12 +1,23 @@
 import unittest
-import mqb.app.services
+from mqb.app.reportsservices import ReportGenerator
+import os
 
 
-class TestReportService(unittest.TestCase):
+class TestReportGenerator(unittest.TestCase):
 
-    def test_latex_parser_generates_pdf(self):
-        self.service = mqb.app.services.ReportingService()
-        pass
+    templates_path = os.getcwd()
+    templates_path = os.path.join(templates_path, "mqb",
+                                  "test", "templates")
+
+    def test_generate_something(self):
+        template = 'hello.tex'
+        var = {}
+        report_generator = ReportGenerator(TestReportGenerator.templates_path)
+        pdf = report_generator.printToPDF(template, var)
+        assert pdf
+
+    def test_variables_are_replaced(self):
+            pass
 
 if __name__ == '__main__':
     unittest.main()
