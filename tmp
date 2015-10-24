@@ -1,0 +1,7 @@
+
+  ,
+         "test_command": "nosetests",
+        "test_virtualenv": "C:\\Users\\sruiz\\Projects\\ManageQualityBetter\\env",
+        "test_project_path": "C:\\Users\\sruiz\\Projects\\ManageQualityBetter",
+
+    },

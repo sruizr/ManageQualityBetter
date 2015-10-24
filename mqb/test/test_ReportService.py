@@ -17,7 +17,15 @@ class TestReportGenerator(unittest.TestCase):
         assert pdf
 
     def test_variables_are_replaced(self):
-            pass
+        template = "helloVariable.tex"
+        name = "Salvador"
+        var = {"name": name}
+        report_generator = ReportGenerator(TestReportGenerator.templates_path)
+        pdf = report_generator.printToPDF(template, var)
+        print(report_generator._parsed_tex)
+        assert pdf
+        assert report_generator._parsed_tex.find(name)
+
 
 if __name__ == '__main__':
     unittest.main()
