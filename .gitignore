@@ -1,3 +1,6 @@
 env/*
 *.sublime-project
 *.sublime-workspace
+
+# folders
+__pycache__
