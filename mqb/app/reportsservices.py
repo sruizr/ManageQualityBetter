@@ -3,6 +3,7 @@ import tempfile
 import jinja2
 import os
 import pdb
+import io
 from shutil import rmtree
 
 print(os.getcwd())
@@ -15,7 +16,6 @@ class ReportGenerator(object):
         self.env = jinja2.Environment(loader=template_loader)
         self.working_path = working_path
         self.template_path = template_path
-        # pdb.set_trace()
 
     def parse_tex_file(self, template, variables=None):
         template = self.env.get_template(template)
@@ -64,5 +64,10 @@ class ReportGenerator(object):
 
         # pdb.set_trace()
 
-        yield open(pdf_filename, 'rb')
+        pdf_file = open(pdf_filename, 'rb')
+
+        output = io.BytesIO(pdf_file.read())
+        pdf_file.close()
         rmtree(temp_dir)
+
+        return output
