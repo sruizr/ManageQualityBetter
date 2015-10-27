@@ -6,15 +6,29 @@ import pdb
 import io
 from shutil import rmtree
 
-print(os.getcwd())
+ENV_ARGS = {
+    'block_start_string': '\BLOCK{',
+    'block_end_string': '}',
+    'variable_start_string': '\VAR{',
+    'variable_end_string': '}',
+    'comment_start_string': '\#{',
+    'comment_end_string': '}',
+    'line_statement_prefix': '%-',
+    'line_comment_prefix': '%#',
+    'trim_blocks': True,
+}
 
 
 class ReportGenerator(object):
 
-    def __init__(self, template_path, working_path):
+    def __init__(self, template_path, working_path=None):
         template_loader = jinja2.FileSystemLoader(searchpath=template_path)
-        self.env = jinja2.Environment(loader=template_loader)
-        self.working_path = working_path
+        ka = ENV_ARGS.copy()
+        self.env = jinja2.Environment(loader=template_loader, **ka)
+        if working_path:
+            self.working_path = working_path
+        else:
+            self.working_path = template_path
         self.template_path = template_path
 
     def parse_tex_file(self, template, variables=None):
