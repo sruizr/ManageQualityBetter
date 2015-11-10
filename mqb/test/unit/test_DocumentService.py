@@ -1,7 +1,7 @@
 import unittest
 from mqb.app.documentservice import PdfGenerator, MailGenerator
 import os
-import test_helper
+import test_helper as th
 import shutil
 import pdb
 
@@ -9,12 +9,18 @@ import pdb
 class TestMailGenerator(unittest.TestCase):
 
     def setup(self):
-        template_path = os.getcwd()
-
-        self.mail_generator = MailGenerator()
+        self.mail_generator = MailGenerator(
+                                            th.get_template_path())
 
     def test_mail_is_properly_parsed(self):
-        variables_
+        variables = {
+            "toDestination": "toTest@test.com",
+            "ccDestination": "ccTest@test.com",
+            "subjectMessage": "Hello world",
+            "bodyMessage": "HHeeeey world",
+            "filePath":
+        }
+        self.mail_generator.parse_mail("hello.mail", variables)
 
 
     def test_mail_structure(self):
@@ -22,10 +28,8 @@ class TestMailGenerator(unittest.TestCase):
 
 
 class TestPdfGenerator(unittest.TestCase):
+    templates_path = th.get_template_path()
 
-    templates_path = os.getcwd()
-    templates_path = os.path.join(templates_path, "mqb",
-                                  "test", "templates")
     pdf_directory = os.path.join(templates_path, "pdfOutput")
 
     def test_texfile_is_parsed(self):

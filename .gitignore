@@ -4,3 +4,5 @@ env/*
 
 # folders
 __pycache__
+
+*.pdf
