@@ -1,30 +1,45 @@
 import unittest
 from mqb.app.documentservice import PdfGenerator, MailGenerator
 import os
-import test_helper as th
-import shutil
+import mqb.test.unit.test_helper as th
 import pdb
 
 
 class TestMailGenerator(unittest.TestCase):
 
-    def setup(self):
+    def setUp(self):
         self.mail_generator = MailGenerator(
                                             th.get_template_path())
-
-    def test_mail_is_properly_parsed(self):
-        variables = {
+        self.variables = {
             "toDestination": "toTest@test.com",
             "ccDestination": "ccTest@test.com",
             "subjectMessage": "Hello world",
             "bodyMessage": "HHeeeey world",
-            "filePath":
+            "filePath": os.path.join(th.get_template_path(),
+                                     "image") + "smile.png"
         }
-        self.mail_generator.parse_mail("hello.mail", variables)
 
+    def test_mail_is_properly_parsed(self):
+
+        xml_mail = self.mail_generator.parse_mail("hello.mail", self.variables)
+
+        assert(xml_mail)
+        self.assertNotEquals(xml_mail.find("toTest@test.com"), -1)
+        self.assertNotEquals(xml_mail.find("ccTest@test.com"), -1)
+        self.assertNotEquals(xml_mail.find("Hello world"), -1)
+        self.assertNotEquals(xml_mail.find("HHeeeey world"), -1)
+        self.assertNotEquals(xml_mail.find("smile.png"), -1)
 
     def test_mail_structure(self):
-        self.fail("Not implemented")
+
+        xml_mail = self.mail_generator.parse_mail("hello.mail", self.variables)
+        mail = self.mail_generator.get_mail(xml_mail)
+
+        pdb.set_trace()
+        self.assertEquals(mail["Subject"], "Information:" +
+                          self.variables["subjectMessage"])
+        self.assertEquals(mail["To"], self.variables["toDestination"])
+        self.assertEquals(mail["CC"], self.variables["ccDestination"])
 
 
 class TestPdfGenerator(unittest.TestCase):
