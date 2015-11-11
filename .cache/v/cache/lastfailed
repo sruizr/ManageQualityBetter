@@ -1,0 +1,11 @@
+{
+  "env/Lib/site-packages/wheel/test/test_basic.py::test_pydist": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_default_tag": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_explicit_tag": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_legacy_wheel_section_in_setup_cfg": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_pythontag_in_setup_cfg": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_beats_explicit_tag": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_in_setup_cfg": true,
+  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_tag": true,
+  "env/Lib/site-packages/wheel/test/test_tool.py::test_keygen": true
+}

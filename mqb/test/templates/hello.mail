@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<cc>{{ccDestination}}</cc>
-<subject>Information:{{subjectMessage}}</subject>
-<texBody>This is the content of the message and I repeate the  '{{bodyMessage}}' message</texBody>
-<attachment>{{filePath}}</attachment>
+<mail>
+	<from>{{fromSource}}</from>
+	<replyTo>{{ccDestination}}</replyTo>
+	<to>{{toDestination}}</to>
+	<cc>{{ccDestination}}</cc>
+	<subject>Information:{{subjectMessage}}</subject>
+	<txtBody> <![CDATA[
+		This is the content of the message and I repeate the  '{{bodyMessage}}' message
+	]]>
+	</txtBody>
+	<attachment>{{filePath}}</attachment>
+</mail>
