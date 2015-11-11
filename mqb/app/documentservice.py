@@ -2,18 +2,23 @@ import subprocess
 import tempfile
 import jinja2
 import os
-import pdb
 import io
 import xml.etree.ElementTree as ET
 
+import mimetypes
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.audio import MIMEAudio
 from email import encoders
 from shutil import rmtree
 
+import pdb
+
 
 class MailGenerator(object):
+
     def __init__(self, template_path, working_path=None):
         template_loader = jinja2.FileSystemLoader(searchpath=template_path)
         self.env = jinja2.Environment(loader=template_loader)
@@ -34,29 +39,54 @@ class MailGenerator(object):
 
         root = ET.fromstring(xml_mail)
         for child in root:
+            if (child.tag == "from"):
+                self._add_address(child.text, "From", mail)
+            if (child.tag == "replyTo"):
+                self._add_address(child.text, "Reply-to", mail)
             if (child.tag == "to"):
-                self.add_address(child.text, "To", mail)
+                self._add_address(child.text, "To", mail)
             if (child.tag == "cc"):
-                self.add_address(child.text, "cc", mail)
+                self._add_address(child.text, "cc", mail)
             if (child.tag == "subject"):
-                pdb.set_trace()
                 mail["Subject"] = child.text
             if child.tag == "txtBody":
-                mail.attach(MIMEText(child.tex, 'plain'))
+                mail.attach(MIMEText(child.text, 'plain'))
+            if child.tag == "htmlBody":
+                mail.attach(MIMEText(child.text, 'html'))
             if child.tag == "attachment":
                 filename = child.text
-                attachment = open("PATH OF THE FILE", "rb")
-                part = MIMEBase('application', 'octet-stream')
-                part.set_payload((attachment).read())
-                encoders.encode_base64(part)
-                part.add_header('Content-Disposition',
-                                "attachment; filename= %s" % filename)
-                mail.attach(part)
+                self._attach_file(filename, mail)
+        return mail
 
-            return mail
-
-    def add_address(self, text, tag, mail):
+    def _add_address(self, text, tag, mail):
         mail[tag] = mail[tag] + ";" + text if mail[tag] else text
+
+    def _attach_file(self, filename, mail):
+        ctype, encoding = mimetypes.guess_type(filename)
+        if ctype is None or encoding is not None:
+            # No guess could be made, or the file is encoded (compressed), so
+            # use a generic bag-of-bits type.
+            ctype = 'application/octet-stream'
+        maintype, subtype = ctype.split('/', 1)
+        if maintype == 'text':
+            with open(filename) as fp:
+                # Note: we should handle calculating the charset
+                part = MIMEText(fp.read(), _subtype=subtype)
+        elif maintype == 'image':
+            with open(filename, 'rb') as fp:
+                part = MIMEImage(fp.read(), _subtype=subtype)
+        elif maintype == 'audio':
+            with open(filename, 'rb') as fp:
+                part = MIMEAudio(fp.read(), _subtype=subtype)
+        else:
+            with open(filename, 'rb') as fp:
+                part = MIMEBase(maintype, subtype)
+                part.set_payload(fp.read())
+            # Encode the payload using Base64
+            encoders.encode_base64(part)
+        # Set the filename parameter
+        part.add_header('Content-Disposition', 'attachment', filename=filename)
+        mail.attach(part)
 
 
 class PdfGenerator(object):

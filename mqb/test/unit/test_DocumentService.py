@@ -11,12 +11,13 @@ class TestMailGenerator(unittest.TestCase):
         self.mail_generator = MailGenerator(
                                             th.get_template_path())
         self.variables = {
+            "fromSource": "me@me.com",
             "toDestination": "toTest@test.com",
             "ccDestination": "ccTest@test.com",
             "subjectMessage": "Hello world",
-            "bodyMessage": "HHeeeey world",
+            "bodyMessage": "Hey world",
             "filePath": os.path.join(th.get_template_path(),
-                                     "image") + "smile.png"
+                                     "img", "smile.png")
         }
 
     def test_mail_is_properly_parsed(self):
@@ -24,22 +25,27 @@ class TestMailGenerator(unittest.TestCase):
         xml_mail = self.mail_generator.parse_mail("hello.mail", self.variables)
 
         assert(xml_mail)
-        self.assertNotEquals(xml_mail.find("toTest@test.com"), -1)
-        self.assertNotEquals(xml_mail.find("ccTest@test.com"), -1)
-        self.assertNotEquals(xml_mail.find("Hello world"), -1)
-        self.assertNotEquals(xml_mail.find("HHeeeey world"), -1)
-        self.assertNotEquals(xml_mail.find("smile.png"), -1)
+        self.assertNotEquals(xml_mail.find(self.variables["fromSource"]), -1)
+        self.assertNotEquals(xml_mail.find(self.variables["toDestination"]),
+                             -1)
+        self.assertNotEquals(xml_mail.find(self.variables["subjectMessage"]),
+                             -1)
+        self.assertNotEquals(xml_mail.find(self.variables["ccDestination"]),
+                             -1)
+        self.assertNotEquals(xml_mail.find(self.variables["bodyMessage"]), -1)
+        self.assertNotEquals(xml_mail.find(self.variables["filePath"]), -1)
 
     def test_mail_structure(self):
 
         xml_mail = self.mail_generator.parse_mail("hello.mail", self.variables)
         mail = self.mail_generator.get_mail(xml_mail)
 
-        pdb.set_trace()
+        # pdb.set_trace()
         self.assertEquals(mail["Subject"], "Information:" +
                           self.variables["subjectMessage"])
         self.assertEquals(mail["To"], self.variables["toDestination"])
         self.assertEquals(mail["CC"], self.variables["ccDestination"])
+
 
 
 class TestPdfGenerator(unittest.TestCase):
