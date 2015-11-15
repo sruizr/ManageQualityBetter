@@ -17,7 +17,7 @@ from shutil import rmtree
 import pdb
 
 
-class MailGenerator(object):
+class MailGenerator:
 
     def __init__(self, template_path, working_path=None):
         template_loader = jinja2.FileSystemLoader(searchpath=template_path)
@@ -89,7 +89,7 @@ class MailGenerator(object):
         mail.attach(part)
 
 
-class PdfGenerator(object):
+class PdfGenerator:
     ENV_ARGS = {
         'block_start_string': '\BLOCK{',
         'block_end_string': '}',

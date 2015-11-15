@@ -1,7 +1,7 @@
 import unittest
 from mqb.app.documentservice import PdfGenerator, MailGenerator
 import os
-import mqb.test.unit.test_helper as th
+import mqb.app.documents
 import pdb
 
 
@@ -45,7 +45,6 @@ class TestMailGenerator(unittest.TestCase):
                           self.variables["subjectMessage"])
         self.assertEquals(mail["To"], self.variables["toDestination"])
         self.assertEquals(mail["CC"], self.variables["ccDestination"])
-
 
 
 class TestPdfGenerator(unittest.TestCase):

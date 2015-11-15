@@ -1,17 +1,23 @@
+# import pdb
 
-class Customer:
+class DetectionPoint:
 
-    def __init__(self, name, mail_address, type, language):
+    def __init__(self, name, kind):
         self.name = name
+        self.kind = kind
+
+
+class Customer(DetectionPoint):
+
+    def __init__(self, name, mail_address, kind, language):
+        DetectionPoint.__init__(self, name, kind)
         self.mail_address = mail_address
-        self.type = type
         self.language = language
 
 
 class User:
 
-    def __init__(self, id, name, full_name, mail_address):
-        self._id = id
+    def __init__(self, name, full_name, mail_address):
         self.name = name
         self.full_name = full_name
         self.mail_address = mail_address
@@ -24,29 +30,85 @@ class Document:
         self.name = name
 
 
-class CustomerIssue:
-
-    def __init__(self, id, line_number):
-        self.id = id
-        self.line_number = line_number
+class Picture(Document):
+    pass
 
 
-class FailureStatement:
+class Track:
 
-    def __init__(self, part, tracking, failure, qty=1):
+    def __init__(self, part, tracking):
         self.part = part
         self.tracking = tracking
-        self.failure = failure
+
+
+class CustomerIssue:
+
+    def __init__(self, customer, key, line, nc_item, sat_user, replaced=False):
+        self.key = key
+        self.line = line
+        self.nc_item = nc_item
+        self.customer = customer
+        self.sat_user = sat_user
+        self.replaced = replaced
+
+
+class NcItem:
+
+    def __init__(self, track, failureStates, qty=1):
+        self.track = track
+        self.failureStates = list(failureStates)
         self.qty = qty
+
+    def copy(self):
+        new_item = NcItem(self.track,
+                          self.failures, self.qty)
+        return new_item
+
+
+class LogisticInspection:
+
+    def __init__(self, responsible):
+        self.responsible = responsible
+
+
+class Qactivity:
+
+    def __init__(self, responsible):
+        self.responsible = responsible
+        self.inputs = set()
+
+    def add_input(self, nc_item):
+        self.inputs.add(nc_item)
+
+    def process_input(self, nc_item, failureState, qty=None):
+        if nc_item not in self.inputs:
+            self.add_input(nc_iterm)
+        if qty is None:
+            qty = nc_item.qty
+
+        result = NcItem(nc_item.track, failureState, qty)
+        nc_item.origin = result
+        nc_item.source = self
+
+    def close_input(self, nc_item, failureState):
+        pass
+
+    def lost_input(self, nc_iterm, failureState):
+        pass
+
+
+class Inspection(Qactivity):
+    pass
+
+
+class Detection(Qactivity):
+    pass
 
 
 class Failure:
 
-    def __init__(self, id, where, what, how):
-        self.id = id
-        self.where = where
-        self.what = what
-        self.how = how
+    def __init__(self, description=None):
+        self.description = description
         self.causes = []
         self.efects = []
         self.S = 0
@@ -59,6 +121,7 @@ class Failure:
         self.efects.append(efect)
 
     def get_full_name(self, language):
+
         where_name = self.where.get_name(language)
         what_name = self.what.get_name(language)
         how_name = self.how.get_name(language)
