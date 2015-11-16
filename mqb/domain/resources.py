@@ -1,5 +1,6 @@
 from mqb.domain.base import Resource
 
+
 class Document(Resource):
     pass
 

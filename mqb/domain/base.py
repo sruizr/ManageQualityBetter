@@ -87,14 +87,15 @@ class Tracking:
         self.key = key
 
     def add_work_item(self, work_item):
+        self.wor_items.add(work_item)
 
 
 class Movement:
     """Create, destroy & moves work_items between nodes"""
     def __init__(self, node, work_item, source, destination):
-        self.pass
+        pass
 
-    def moves(self, work_iterm, source, destination, actor=destination, process=None ):
+    def moves(self, work_iterm, source, destination, actor, process=None ):
         pass
 
 
@@ -103,6 +104,3 @@ class Process(Movement):
     def __init__(self, name = None):
         self.movements = []
 
-
-
-class
