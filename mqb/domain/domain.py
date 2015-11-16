@@ -7,38 +7,11 @@ class DetectionPoint:
         self.kind = kind
 
 
-class Customer(DetectionPoint):
-
-    def __init__(self, name, mail_address, kind, language):
-        DetectionPoint.__init__(self, name, kind)
-        self.mail_address = mail_address
-        self.language = language
-
-
-class User:
-
-    def __init__(self, name, full_name, mail_address):
-        self.name = name
-        self.full_name = full_name
-        self.mail_address = mail_address
-
-
-class Document:
-
-    def __init__(self, name):
-        self.path = None
-        self.name = name
-
 
 class Picture(Document):
     pass
 
 
-class Track:
-
-    def __init__(self, part, tracking):
-        self.part = part
-        self.tracking = tracking
 
 
 class CustomerIssue:
@@ -105,34 +78,6 @@ class Detection(Qactivity):
     pass
 
 
-class Failure:
-
-    def __init__(self, description=None):
-        self.description = description
-        self.causes = []
-        self.efects = []
-        self.S = 0
-        self.O = 0
-
-    def add_cause(self, cause):
-        self.causes.append(cause)
-
-    def add_efect(self, efect):
-        self.efects.append(efect)
-
-    def get_full_name(self, language):
-
-        where_name = self.where.get_name(language)
-        what_name = self.what.get_name(language)
-        how_name = self.how.get_name(language)
-
-        if language == "es":
-            full_name = "%1 %2 de %3".format(how_name, what_name, where_name)
-        elif language == "en":
-            full_name = "%1 %2 at %3".format(how_name, what_name, where_name)
-        else:
-            raise LanguageException(language)
-        return full_name
 
 
 class Concept:

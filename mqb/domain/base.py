@@ -1,4 +1,5 @@
 class Node:
+    """Active classes were operations are done"""
     def __init__(self):
         self.input_area = {}
         self.processing_area = {}
@@ -30,14 +31,10 @@ class Node:
 
     @classmethod
     def move_resource(self, key, source, destination):
-       try:
+        try:
             resource = source.output_area.pop(key)
-            resource |should| be_instance_of(Resource)
-        except KeyError:
-            raise KeyError('Resource with key %s not found in source node output area' % key)
-        except ShouldNotSatisfied:
-            source.output_area[key] = resource  # put it back in the source
-            raise ContractError('Resource instance expected, instead %s passed' % type(resource))
+        except error:
+            print(error)
         else:
             destination.input_area[key] = resource
 
@@ -48,6 +45,7 @@ class Person(Node):
         self.name = name
         self.mail_address = None
         self.full_name = None
+        self.roles = []
 
 
 class Machine(Node):
@@ -61,36 +59,47 @@ class Organization(Node):
         self.name = name
         self.nodes = []
 
+
 class Resource:
     pass
 
 
-class WorkItem(Resource):
-
-    def __init__(self, tracking=None):
-        Resource.__init__(self)
-        self.tracking = tracking
-
-class Amount(WorkItem):
-
-    def __init__(self, tracking=None, qty=1):
-        WorkItem.__init__(self, tracking, qty)
+class WorkItem:
+    """It's a instance of Resource"""
+    def __init__(self, resource, qty=1, tracking=None):
+        self.resource = resource
+        if tracking:
+            self.tracking = tracking
         self.qty = qty
 
-class Container(Resource):
+
+
+
+class Container(WorkItem):
 
     def __init__(self, name=None):
-        self.resources = []
+        self.workItems = []
+
+class Tracking:
+    """Groups resources with same origin"""
+    def __init__(self, key):
+        self.work_items = []
+        self.key = key
+
+    def add_work_item(self, work_item):
 
 
 class Movement:
-
-    def __init__(self, node, resource, source, destination):
+    """Create, destroy & moves work_items between nodes"""
+    def __init__(self, node, work_item, source, destination):
         self.pass
+
+    def moves(self, work_iterm, source, destination, actor=destination, process=None ):
+        pass
 
 
 class Process(Movement):
-
+    """List of methods for movements """
     def __init__(self, name = None):
         self.movements = []
 
