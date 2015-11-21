@@ -16,3 +16,4 @@ class Customer(Organization):
         self.mail_address = mail_address
         self.category = category
         self.language = language
+
