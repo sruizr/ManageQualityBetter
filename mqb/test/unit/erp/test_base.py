@@ -44,6 +44,7 @@ class A_Node:
 
         try:
             node = Node(self.key, wrong_parent)
+            pytest.fail("No IncorrectNodeException is caught")
         except Exception:
             assert Exception
 

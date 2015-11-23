@@ -2,6 +2,7 @@ from .exceptions import (
                          IncorrectNodeClass,
                          )
 
+
 class Resource:
     """Resources of the system"""
     def __init__(self, key=None):
@@ -14,7 +15,7 @@ class Node(Resource):
         """If parent is omited the node is a root node"""
         Resource.__init__(self, key)
 
-        self._parent = parent
+        self._parent = None
         if parent:
             if not issubclass(type(parent), Organization):
                 raise IncorrectNodeClass
