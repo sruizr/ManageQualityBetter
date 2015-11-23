@@ -1,23 +1,44 @@
+from .exceptions import (
+                         IncorrectNodeClass,
+                         )
+
 class Resource:
     """Resources of the system"""
     def __init__(self, key=None):
-        if key:
-            self.key = key
+        self.key = key
 
 
 class Node(Resource):
     """Active resources of the system, they generate flows"""
-    def __init__(self, parent=None):
+    def __init__(self, key, parent=None):
         """If parent is omited the node is a root node"""
-        Resource.__init__(self, )
-        self.inbox = {}
+        Resource.__init__(self, key)
+
+        self._parent = parent
         if parent:
-            self.parent = parent
+            if not issubclass(type(parent), Organization):
+                raise IncorrectNodeClass
+            if self not in parent.nodes:
+                parent.nodes.append(self)
+
+        # Not checked yet
+        self.inbox = {}
         self.on_process = {}
         self.outbox = {}
         self.log_area = {}
         self.tag = None
         self.location = None
+
+    @property
+    def parent(self):
+        return self._parent
+
+    @parent.setter
+    def parent(self, value):
+        if value:
+            self._parent = value
+            if self not in value.nodes:
+                value.nodes.append(self)
 
     def create_work_item(self, work_item, activity):
         key = "{}.{}/{}.{}".format(self.__class__, self._id,
@@ -58,10 +79,25 @@ class Node(Resource):
         pass
 
 
+class Organization(Node):
+    def __init__(self, key, nodes=[], parent=None):
+        Node.__init__(self, key, parent)
+        self.nodes = nodes
+        for node in self.nodes:
+            node.parent = self
+
+    def add_node(self, node):
+        pass
+
+    def remove_node(self, node):
+        pass
+
+
 class WorkItem(Resource):
     def __init__(self, source):
         source.create_work_item(self)
         self.source = source
+
 
 class Flow:
     "It's a movement of resource"

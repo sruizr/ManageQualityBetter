@@ -107,6 +107,3 @@ class A_NcMaterial:
                                 [self.suspect_defect])
 
         assert nc_suspect.status() == IS_SUSPECT
-
-
-

@@ -13,7 +13,6 @@ IS_NOK = 2
 
 # Quality resources
 
-
 class Failure(Concept):
 
     def __init__(self, how, what, who, failure_key=None):

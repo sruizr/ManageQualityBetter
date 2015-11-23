@@ -44,5 +44,3 @@ class A_Product:
         assert product.part.number == self.part_number
         assert product.tracking == self.tracking
         assert product.qty == self.qty
-
-

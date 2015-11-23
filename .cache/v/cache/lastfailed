@@ -1,1 +1,4 @@
-{}
+{
+  "mqb/test/unit/erp/test_base.py::A_Node::()::should_be_initialized_orphan_by_default": true,
+  "mqb/test/unit/erp/test_base.py::An_Organization::()::should_be_initialized_with_defaults": true
+}
