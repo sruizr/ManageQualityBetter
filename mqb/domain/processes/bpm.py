@@ -1,5 +1,8 @@
-from mqb.domain.base import Process, Machine
+from mqb.domain.erp.base import Process
+from mqb.domain.erp.nodes import Machine
 from pyactiviti import Activiti
+
+
 class BpmProcess(Process):
 
     def __init__(self, activiti_auth, activiti_url):
@@ -14,7 +17,6 @@ class BpmProcess(Process):
 
         executions = Execution.list(filter)
 
-        self.activiti_engine.
 
 class BpmMapper:
     pass

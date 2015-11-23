@@ -1,41 +1,11 @@
 # import pdb
 
+
 class DetectionPoint:
 
     def __init__(self, name, kind):
         self.name = name
         self.kind = kind
-
-
-
-class Picture(Document):
-    pass
-
-
-
-
-class CustomerIssue:
-
-    def __init__(self, customer, key, line, nc_item, sat_user, replaced=False):
-        self.key = key
-        self.line = line
-        self.nc_item = nc_item
-        self.customer = customer
-        self.sat_user = sat_user
-        self.replaced = replaced
-
-
-class NcItem:
-
-    def __init__(self, track, failureStates, qty=1):
-        self.track = track
-        self.failureStates = list(failureStates)
-        self.qty = qty
-
-    def copy(self):
-        new_item = NcItem(self.track,
-                          self.failures, self.qty)
-        return new_item
 
 
 class LogisticInspection:

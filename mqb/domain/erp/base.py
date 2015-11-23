@@ -1,8 +1,8 @@
 class Resource:
     """Resources of the system"""
-    def __init__(self, name=None):
-        if name:
-            self.name = name
+    def __init__(self, key=None):
+        if key:
+            self.key = key
 
 
 class Node(Resource):
@@ -55,7 +55,7 @@ class Node(Resource):
             destination.input_area[key] = work_item
 
     def launch(self, key, destination):
-        p
+        pass
 
 
 class WorkItem(Resource):
@@ -130,5 +130,3 @@ class Process(Activity):
         if name:
             self.name = name
         self.active_activities = {}
-
-

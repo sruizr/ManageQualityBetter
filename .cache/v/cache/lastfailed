@@ -1,6 +1,1 @@
-{
-  "mqb/test/unit/erp/test_base.py::A_Flow::()::should_start": true,
-  "mqb/test/unit/erp/test_base.py::A_Node::()::should_be_created_by_other_node": true,
-  "mqb/test/unit/erp/test_base.py::A_work_item::()::should_moves_from_source_outbox_node_to_destination_inbox_node": true,
-  "mqb/test/unit/erp/test_base.py::A_work_item::()::should_removes__at_a_node_inbox": true
-}
+{}
