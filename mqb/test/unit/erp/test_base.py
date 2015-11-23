@@ -50,7 +50,20 @@ class A_Node:
 
         node = Node(self.key, parent)
         assert node in parent.nodes
-        assert node.parent == parent
+        assert node._parent == parent
+
+    def should_init_flow_at_outbox(self):
+        resource = Resource()
+
+    def should_launch_work_items_from_outbox_to_destination_inbox(self):
+        pytest.fail("Not implemented")
+
+    def should_pull_work_items_from_inbox(self):
+        pytest.fail("Not implemented")
+
+    def should_push_work_items_to_outbox(self):
+        pytest.fail("Not implemented")
+
 
 @pytest.mark.current
 class An_Organization:
@@ -78,30 +91,13 @@ class An_Organization:
         assert organization.nodes[0].parent == organization
 
 
-class A_Flow:
+@pytest.mark.current
+class A_work_item(Resource):
 
-    def should_start(self):
-        pytest.fail("Not-implemented")
+    def should_be_initialized_with_defaults(self):
+        pytest.fail("Not implemented")
+
+    def should_be_initialized_with_optionals(self):
+        pytest.fail("Not implemented")
 
 
-class A_work_item:
-
-    def should_be_created_at_node_outbox(self):
-        node = Node()  # It's a root node. Example organization
-        work_item = WorkItem(node)
-
-        assert work_item.source == node
-
-    def should_moves_from_source_outbox_node_to_destination_inbox_node(self):
-        source = Node()
-        destination = Node()
-
-        work_item = WorkItem(source)
-        source.launch(work_item, destination)
-
-        assert(destination.inbox[destination.inbox.keys()[0]] == work_item)
-        assert not source.outbox
-        assert work_item.destination == destination
-
-    def should_removes__at_a_node_inbox(self):
-        pytest.fail("Not-Implemented")

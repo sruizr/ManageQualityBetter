@@ -20,6 +20,7 @@ class Node(Resource):
             if not issubclass(type(parent), Organization):
                 raise IncorrectNodeClass
             if self not in parent.nodes:
+                self.parent = parent
                 parent.nodes.append(self)
 
         # Not checked yet

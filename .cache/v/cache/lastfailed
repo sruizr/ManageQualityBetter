@@ -1,4 +1,4 @@
 {
-  "mqb/test/unit/erp/test_base.py::A_Node::()::could_be_initialized_with_organization_parent": true,
-  "mqb/test/unit/erp/test_base.py::An_Organization::()::could_be_initialized_with_childs_and_parent": true
+  "mqb/test/unit/erp/test_base.py::A_Node::()::should_launch_work_items_from_outbox_to_destination_inbox": true,
+  "mqb/test/unit/erp/test_base.py::A_Node::()::should_pull_work_items_from_inbox": true
 }
