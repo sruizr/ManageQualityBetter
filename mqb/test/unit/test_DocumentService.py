@@ -1,7 +1,7 @@
 import unittest
-from mqb.app.documentservice import PdfGenerator, MailGenerator
+from mqb.domain.documentservice import PdfGenerator, MailGenerator
 import os
-import mqb.app.documents
+import mqb
 import pdb
 
 

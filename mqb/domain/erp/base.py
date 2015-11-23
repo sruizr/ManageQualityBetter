@@ -1,12 +1,28 @@
-class Node:
-    """Active classes were operations are done"""
-    def __init__(self):
-        self.input_area = {}
-        self.processing_area = {}
-        self.output_area = {}
+class Resource:
+    """Resources of the system"""
+    def __init__(self, name=None):
+        if name:
+            self.name = name
+
+
+class Node(Resource):
+    """Active resources of the system, they generate flows"""
+    def __init__(self, parent=None):
+        """If parent is omited the node is a root node"""
+        Resource.__init__(self, )
+        self.inbox = {}
+        if parent:
+            self.parent = parent
+        self.on_process = {}
+        self.outbox = {}
         self.log_area = {}
         self.tag = None
         self.location = None
+
+    def create_work_item(self, work_item, activity):
+        key = "{}.{}/{}.{}".format(self.__class__, self._id,
+                                   activity.__class__, activity._id)
+        self.outbox[key] = work_item
 
     def transfer(self, key, source_area, destination_area):
         if source_area == 'input':
@@ -38,58 +54,40 @@ class Node:
         else:
             destination.input_area[key] = work_item
 
-
-class Person(Node):
-    def __init__(self, name):
-        Node.__init__(self)
-        self.name = name
-        self.mail_address = None
-        self.full_name = None
-        self.roles = []
+    def launch(self, key, destination):
+        p
 
 
-class Machine(Node):
-    def __init__(self, name):
-        Node.__init__(self)
-        self.name = name
+class WorkItem(Resource):
+    def __init__(self, source):
+        source.create_work_item(self)
+        self.source = source
 
-class Organization(Node):
+class Flow:
+    "It's a movement of resource"
+    def __init__(self, source):
+        self.source = source
 
-    def __init__(self, name=None):
-        self.name = name
-        self.nodes = []
-
-class NodeDecorator(Node):
-
-    def __init__(self, decorated):
-        self.decorated = decorated
-
-    def transfer(self):
-        pass
-
-    def move_work_item(self):
-        pass
-
-
-class Resource:
-    pass
-
-
-class WorkItem:
-    """It's a instance of Resource"""
-    def __init__(self, resource, qty=1, tracking=None):
+    def start(self, resource):
+        """Resource is created in outbox of source node"""
         self.resource = resource
-        if tracking:
-            self.tracking = tracking
-        self.qty = qty
 
+    def push(self, qty=1):
+        """It sends a qty to a created resource to source outbox node"""
+        pass
 
+    def launch(self, destination):
+        """It moves the resource from source oubox area to destination inbox
+        area"""
 
+    def pull(self, qty=None):
+        """It picks a qty of resource from destination inbox area to
+        on_progres area """
 
-class Container(WorkItem):
+    def close(self):
+        """ The flow is not active, all qty is consumed in destination inbox
+        area"""
 
-    def __init__(self, name=None):
-        self.workItems = []
 
 class Tracking:
     """Groups resources with same origin"""
@@ -100,19 +98,6 @@ class Tracking:
     def add_work_item(self, work_item):
         self.work_items.append(work_item)
         work_item.tracking = self
-
-
-class Flow:
-    """Create, destroy & moves work_items between nodes"""
-
-    def __init__(self, node, work_item, source, destination):
-        self.source = source
-        self.destination = destination
-        self.node = node
-        self.work_item = work_item
-
-    def moves(self, work_item, source, destination, actor, process=None):
-        pass
 
 
 class Activity:

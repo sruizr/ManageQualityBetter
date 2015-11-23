@@ -1,11 +1,6 @@
 {
-  "env/Lib/site-packages/wheel/test/test_basic.py::test_pydist": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_default_tag": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_explicit_tag": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_legacy_wheel_section_in_setup_cfg": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_pythontag_in_setup_cfg": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_beats_explicit_tag": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_in_setup_cfg": true,
-  "env/Lib/site-packages/wheel/test/test_tagopt.py::test_universal_tag": true,
-  "env/Lib/site-packages/wheel/test/test_tool.py::test_keygen": true
+  "mqb/test/unit/erp/test_base.py::A_Flow::()::should_start": true,
+  "mqb/test/unit/erp/test_base.py::A_Node::()::should_be_created_by_other_node": true,
+  "mqb/test/unit/erp/test_base.py::A_work_item::()::should_moves_from_source_outbox_node_to_destination_inbox_node": true,
+  "mqb/test/unit/erp/test_base.py::A_work_item::()::should_removes__at_a_node_inbox": true
 }
