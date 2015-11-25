@@ -1,4 +1,1 @@
-{
-  "mqb/test/unit/erp/test_base.py::A_Node::()::should_launch_work_items_from_outbox_to_destination_inbox": true,
-  "mqb/test/unit/erp/test_base.py::A_Node::()::should_pull_work_items_from_inbox": true
-}
+{}

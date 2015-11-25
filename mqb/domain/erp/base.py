@@ -1,6 +1,7 @@
 from .exceptions import (
                          IncorrectNodeClass,
                          )
+import datetime
 
 
 class Resource:
@@ -11,17 +12,11 @@ class Resource:
 
 class Node(Resource):
     """Active resources of the system, they generate flows"""
-    def __init__(self, key, parent=None):
+    def __init__(self, key):
         """If parent is omited the node is a root node"""
         Resource.__init__(self, key)
 
         self._parent = None
-        if parent:
-            if not issubclass(type(parent), Organization):
-                raise IncorrectNodeClass
-            if self not in parent.nodes:
-                self.parent = parent
-                parent.nodes.append(self)
 
         # Not checked yet
         self.inbox = {}
@@ -34,13 +29,6 @@ class Node(Resource):
     @property
     def parent(self):
         return self._parent
-
-    @parent.setter
-    def parent(self, value):
-        if value:
-            self._parent = value
-            if self not in value.nodes:
-                value.nodes.append(self)
 
     def create_work_item(self, work_item, activity):
         key = "{}.{}/{}.{}".format(self.__class__, self._id,
@@ -82,89 +70,69 @@ class Node(Resource):
 
 
 class Organization(Node):
-    def __init__(self, key, nodes=[], parent=None):
-        Node.__init__(self, key, parent)
+    """It's a group of nodes, a team when all are persons"""
+    def __init__(self, key, nodes={}):
+        Node.__init__(self, key)
+
         self.nodes = nodes
-        for node in self.nodes:
-            node.parent = self
+        for node in self.nodes.values():
+            node._parent = self
 
-    def add_node(self, node):
-        pass
+    def add_node(self, node, role_name):
+        self.nodes[role_name] = node
+        node._parent = self
 
-    def remove_node(self, node):
-        pass
+    def remove_node(self, role_name):
+        node = self.nodes.pop(role_name)
+        node._parent = None
 
 
-class WorkItem(Resource):
-    def __init__(self, source):
-        source.create_work_item(self)
+class Movement:
+    """Movement of a resource from one node to other"""
+    def __init__(self, resource, source, key=None, parent=None):
+        """Movement is created from outbox of source"""
         self.source = source
-
-
-class Flow:
-    "It's a movement of resource"
-    def __init__(self, source):
-        self.source = source
-
-    def start(self, resource):
-        """Resource is created in outbox of source node"""
         self.resource = resource
+        self.begin = datetime.datetime.utcnow()
+        if not key:
+            key = source.key
+        self.key = key
 
-    def push(self, qty=1):
-        """It sends a qty to a created resource to source outbox node"""
-        pass
+        source.outbox[self.key] = self
 
     def launch(self, destination):
         """It moves the resource from source oubox area to destination inbox
         area"""
 
-    def pull(self, qty=None):
-        """It picks a qty of resource from destination inbox area to
-        on_progres area """
+        self.destination = destination
+        self.shot = datetime.datetime.utcnow()
+
+        self.destination.inbox[self.key] = self.source.outbox.pop(self.key)
 
     def close(self):
-        """ The flow is not active, all qty is consumed in destination inbox
-        area"""
+        """ The movement is not active, resource is consumed"""
+        self.end = datetime.datetime.utcnow()
+        del self.destination.inbox[self.key]
 
 
-class Tracking:
-    """Groups resources with same origin"""
-    def __init__(self, key):
-        self.work_items = []
-        self.key = key
+class Process(Organization):
+    """Control the flows of a full process """
+    def __init__(self, actors):
+        Organization.__init__(self, self.__class__.__name__, actors)
+        self.executions = []
 
-    def add_work_item(self, work_item):
-        self.work_items.append(work_item)
-        work_item.tracking = self
+    def start(self, process_instance, customer):
+        self.customer = customer
+        movement = Movement(process_instance, customer)
+        movement.launch(self)
 
+        self.executions.append(movement)
 
-class Activity:
+    def assign(self, movement, actor_role):
+        """Reasigns movement to a child"""
+        node = self.nodes[actor_role]
+        if movement in self.inbox:
+            movement.launch(node)
 
-    def __init(self, id):
-        self.id = id
-        self.flows = []
-        self.name = None
-        self.start_date = None
-        self.end_date = None
-        self.parent = None
-
-    def start(self, origin, in_flows):
-        pass
-
-    def process(self, origin, method):
-        pass
-
-    def launch_work_items(self, origin, out_flows, method):
-        pass
-
-    def end(self, origin, movements):
-        pass
-
-
-class Process(Activity):
-    """List of methods for movements """
-    def __init__(self, id, name=None):
-        self.id = id
-        if name:
-            self.name = name
-        self.active_activities = {}
+class Process_Request(Resource):
+    pass
