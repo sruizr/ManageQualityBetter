@@ -8,6 +8,29 @@ class Resource:
     """Resources of the system"""
     def __init__(self, key=None):
         self.key = key
+        self.id = None
+
+
+class Material(Resource):
+
+    def __init__(self, concept):
+        Resource.__init__(self)
+        self.concept = concept
+
+
+class Concept(Resource):
+
+    def __init__(self, key):
+        Resource.__init__(self, key)
+        self.description= None
+
+
+class Information(Resource):
+
+    def __init__(self, concept, template=None):
+        Resource.__init__(self)
+        self.concept = concept
+        self.template = template
 
 
 class Node(Resource):
@@ -85,6 +108,23 @@ class Organization(Node):
     def remove_node(self, role_name):
         node = self.nodes.pop(role_name)
         node._parent = None
+
+
+class Person(Node):
+    def __init__(self, key, mail_address=None, firstname=None,
+                 surname=None, genre=None):
+        Node.__init__(self, key)
+        self.mail_address = mail_address
+        self.firstname = firstname
+        self.surname = surname
+        self.genre = genre
+
+    def full_name(self):
+        return firstname + " " + surname
+
+
+class Machine(Node):
+    pass
 
 
 class Movement:

@@ -3,31 +3,32 @@ from mqb.domain.erp.base import (
                                  Node,
                                  Organization,
                                  Movement,
-                                 Process
+                                 Process,
+                                 Material,
+                                 Information,
+                                 Concept,
+                                 Person,
+                                 Machine,
                                  )
 from mqb.domain.erp.exceptions import IncorrectNodeClass
 from freezegun import freeze_time
 import datetime
 
-import pytest
-import pdb
-import unittest
 
-
-@pytest.mark.current
 class A_Resource:
 
     def should_be_initialized_with_defaults(self):
         resource = Resource()
 
         assert not resource.key
+        assert hasattr(resource, "id")
 
     def should_be_inititalized_with_extra_parameters(self):
         resource = Resource("key")
 
         assert resource.key == "key"
 
-@pytest.mark.current
+
 class A_Node:
 
     def setup_method(self, method):
@@ -40,7 +41,6 @@ class A_Node:
         assert node.key == self.key
 
 
-@pytest.mark.current
 class An_Organization:
 
     def setup_method(self, method):
@@ -77,7 +77,6 @@ class An_Organization:
         assert not organization.nodes
 
 
-@pytest.mark.current
 class A_Movement:
 
     def setup_method(self, method):
@@ -131,7 +130,6 @@ class A_Movement:
         assert movement.end == self.date
 
 
-@pytest.mark.current
 class A_Process:
 
     def setup_method(self, method):
@@ -168,3 +166,73 @@ class A_Process:
 
         assert not self.roles["role1"].inbox
         assert process.inbox
+
+
+class A_Concept:
+
+    def should_be_initialized_with_defaults(self):
+        concept = Concept("itemKey")
+
+        assert concept
+        assert concept.key == "itemKey"
+        assert hasattr(concept, "description")
+
+
+class A_Material:
+
+    def should_be_initialized_with_defaults(self):
+        concept = Concept("itemKey")
+        material = Material(concept)
+
+        assert material
+        assert material.concept == concept
+
+
+class An_Information:
+
+    def should_be_initialized_with_defaults(self):
+        concept = Concept("itemKey")
+        information = Information(concept)
+
+        assert information
+        assert information.concept == concept
+
+    def could_be_initialized_with_template(self):
+        concept = Concept("itemKey")
+        template = "Plain template"
+        information = Information(concept, template)
+
+        assert information
+        assert information.template == template
+
+
+class A_Person:
+
+    def should_be_initialized_with_defaults(self):
+        person = Person("personKey")
+
+        assert person
+
+    def could_be_inititalized_with_other_information(self):
+        person_key = "sruiz"
+        firstname = "Salvador"
+        surname = "Ruiz"
+        mail_address = "sruiz@sruiz.es"
+        genre = "m"
+
+        person = Person(person_key, mail_address, firstname,
+                        surname, genre)
+
+        assert person.mail_address == mail_address
+        assert person.key == person_key
+        assert person.firstname == firstname
+        assert person.surname == surname
+        assert person.genre == genre
+
+
+class A_Machine:
+
+    def should_be_initialized_with_defaults(self):
+        machine = Machine("machineKey")
+
+        assert machine
