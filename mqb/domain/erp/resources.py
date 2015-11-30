@@ -1,28 +1,26 @@
-from .base import Resource
+from .base import (
+                   Resource,
+                   Concept,
+                   Material,
+                   Information,
+                   )
 
 import pdb
 
-class Material(Resource):
-    """It's a material resource"""
-    def __init__(self, concept, tracking, qty=1):
-        self.concept = concept
-        self.qty = qty
+
+class Batch(Material):
+
+    def __init__(self, concept, tracking):
+        Material.__init__(self, concept)
         self.tracking = tracking
 
 
-class Container(Resource):
+class Amount(Material):
 
-    def __init__(self, name=None):
-        self._resources = []
-
-
-class Concept(Resource):
-    "It's a concept in the system"
-    def __init__(self, key, description=None):
-        Resource.__init__(self)
-        self.key = key
-        if description:
-            self.description = description
+    def __init__(self, batch, qty=1):
+        Material.__init__(self, batch.concept)
+        self.batch = batch
+        self.qty = qty
 
 
 class Part(Concept):
@@ -35,14 +33,14 @@ class Part(Concept):
         return self.key
 
 
-class Product(Material):
-    def __init__(self, part_number, tracking, qty=1):
-        part = Part(part_number)
-        Material.__init__(self, part, tracking, qty)
+class Product(Amount):
+    def __init__(self, batch, qty=1):
+        Amount.__init__(self, batch, qty)
 
     @property
     def part(self):
         return self.concept
+
 
 
 class Document(Concept):

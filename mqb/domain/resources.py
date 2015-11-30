@@ -3,6 +3,8 @@ from mqb.domain.erp.resources import (
                                       Part,
                                       Concept,
                                       Material,
+                                      Batch,
+                                      Amount
                                       )
 
 
@@ -19,6 +21,7 @@ class Failure(Concept):
         key = "{}, {}, {}".format(how.key, what.key, who.key)
         Concept.__init__(self, key)
         self.elements = [how, what, who]
+        self.description = "{} {} de {}".format(how.key, what.key, who.key)
 
     @classmethod
     def parse(cls, description):
@@ -53,14 +56,18 @@ class Failure(Concept):
         return self.description
 
 
-class Defect(Material):
+class FailureDetection(Batch):
 
-    def __init__(self, failure_description, tracking,
+    def __init__(self, failure, tracking):
+        Batch.__init__(self, failure, tracking)
+
+
+class Defect(Amount):
+
+    def __init__(self, failure_detection,
                  qty=1, suspect=False):
 
-        failure = Failure.parse(failure_description)
-        Material.__init__(self, failure, tracking, qty)
-
+        Amount.__init__(self, failure_detection, qty)
         self.suspect = suspect
 
     @property
@@ -70,8 +77,8 @@ class Defect(Material):
 
 class NcMaterial(Product):
 
-    def __init__(self, part_number, tracking,  qty=1, defects=[]):
-        Product.__init__(self, part_number, tracking, qty)
+    def __init__(self, batch,  qty=1, defects=[]):
+        Product.__init__(self, batch, qty)
         self.defects = defects
 
     def add_defect(self, failure, is_nc):
@@ -101,7 +108,3 @@ class CustomerIssue:
         self.customer = customer
         self.sat_user = sat_user
         self.replaced = replaced
-
-
-
-

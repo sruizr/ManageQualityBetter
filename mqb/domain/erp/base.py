@@ -20,9 +20,9 @@ class Material(Resource):
 
 class Concept(Resource):
 
-    def __init__(self, key):
+    def __init__(self, key, description=None):
         Resource.__init__(self, key)
-        self.description= None
+        self.description = description
 
 
 class Information(Resource):
@@ -122,6 +122,10 @@ class Person(Node):
     def full_name(self):
         return firstname + " " + surname
 
+    @classmethod
+    def get_key_from_mail(cls, mail_address):
+        key = mail_address.split("@")
+        return key[0]
 
 class Machine(Node):
     pass
