@@ -1,1 +1,4 @@
-{}
+{
+  "mqb/test/unit/erp/test_materials.py::A_Product::()::should_be_initialized_with_defaults": true,
+  "mqb/test/unit/erp/test_materials.py::A_Product::()::should_be_initialized_with_extra_arguments": true
+}
