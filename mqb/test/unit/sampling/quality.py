@@ -7,12 +7,13 @@ from mqb.engine.domain.quality import (
                                        )
 from mqb.engine.domain.base import Node
 from random import randrange
-
+import pdb
 
 def get_nc_product(index, defects_qty, detection):
+
     product = get_product(index)
-    nc_material = NcMaterial(product.batch, randrange(defects_qty))
-    for defect_index in randrange(1, defects_qty):
+    nc_material = NcMaterial(product.batch, randrange(1, defects_qty))
+    for defect_index in range(1, defects_qty):
         add_defect(defect_index, nc_material, detection)
 
     return nc_material
@@ -34,8 +35,8 @@ def get_issue(index, nc_qty):
     issue_key = "issue" + str(index)
     issue = Issue(issue_key, detection)
 
-    for line in str(range(1, nc_qty)):
+    for line in range(0, nc_qty+1):
         nc_material = get_nc_product(line, randrange(nc_qty), detection)
-        issue.nc_materilas[line] = nc_material
+        issue.nc_materilas[str(line)] = nc_material
 
     return issue

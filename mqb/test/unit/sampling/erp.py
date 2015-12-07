@@ -6,13 +6,13 @@ from mqb.engine.domain.erp import (
                                )
 from mqb.engine.domain.base import Node
 from random import randrange
+import pdb
 
 
 def get_product(index):
     tracking = "productionTracking" + str(index)
     batch = Batch(get_part(index), tracking)
-
-    qty = randrange(1, index)
+    qty = randrange(1, index+2)
     return Product(batch, qty)
 
 
