@@ -1,5 +1,6 @@
 from mqb.domain.erp.base import Process
 from mqb.domain.erp.nodes import Machine
+from mqb.domain.erp.roles import Role
 from pyactiviti import Activiti
 
 
@@ -19,4 +20,22 @@ class BpmProcess(Process):
 
 
 class BpmMapper:
+    pass
+
+
+class BpmEngine(Role):
+    def __init__(self, machine):
+        Role.__init__(self, machine)
+        Activiti.
+
+
+class Execution:
+    pass
+
+
+class Task:
+    pass
+
+
+class User:
     pass

@@ -1,2 +1,0 @@
-class IncorrectNodeClass(Exception):
-    pass

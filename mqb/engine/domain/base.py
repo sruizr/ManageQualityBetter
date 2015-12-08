@@ -1,4 +1,4 @@
-from .exceptions import (
+from ..exceptions import (
                          IncorrectNodeClass,
                          )
 import datetime
@@ -20,9 +20,9 @@ class Material(Resource):
 
 class Concept(Resource):
 
-    def __init__(self, key):
+    def __init__(self, key, description=None):
         Resource.__init__(self, key)
-        self.description= None
+        self.description = description
 
 
 class Information(Resource):
@@ -92,43 +92,16 @@ class Node(Resource):
         pass
 
 
-class Organization(Node):
-    """It's a group of nodes, a team when all are persons"""
-    def __init__(self, key, nodes={}):
-        Node.__init__(self, key)
+class Container(Resource):
 
-        self.nodes = nodes
-        for node in self.nodes.values():
-            node._parent = self
-
-    def add_node(self, node, role_name):
-        self.nodes[role_name] = node
-        node._parent = self
-
-    def remove_node(self, role_name):
-        node = self.nodes.pop(role_name)
-        node._parent = None
-
-
-class Person(Node):
-    def __init__(self, key, mail_address=None, firstname=None,
-                 surname=None, genre=None):
-        Node.__init__(self, key)
-        self.mail_address = mail_address
-        self.firstname = firstname
-        self.surname = surname
-        self.genre = genre
-
-    def full_name(self):
-        return firstname + " " + surname
-
-
-class Machine(Node):
-    pass
+    def __init__(self, key):
+        Resource.__init__(self, key)
+        self.resources = {}
 
 
 class Movement:
     """Movement of a resource from one node to other"""
+
     def __init__(self, resource, source, key=None, parent=None):
         """Movement is created from outbox of source"""
         self.source = source
@@ -153,26 +126,3 @@ class Movement:
         """ The movement is not active, resource is consumed"""
         self.end = datetime.datetime.utcnow()
         del self.destination.inbox[self.key]
-
-
-class Process(Organization):
-    """Control the flows of a full process """
-    def __init__(self, actors):
-        Organization.__init__(self, self.__class__.__name__, actors)
-        self.executions = []
-
-    def start(self, process_instance, customer):
-        self.customer = customer
-        movement = Movement(process_instance, customer)
-        movement.launch(self)
-
-        self.executions.append(movement)
-
-    def assign(self, movement, actor_role):
-        """Reasigns movement to a child"""
-        node = self.nodes[actor_role]
-        if movement in self.inbox:
-            movement.launch(node)
-
-class Process_Request(Resource):
-    pass

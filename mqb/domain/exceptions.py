@@ -1,4 +1,0 @@
-class NoInputsFound(Exception):
-    pass
-
-

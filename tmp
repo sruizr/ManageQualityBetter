@@ -1,4 +1,3 @@
-
   ,
          "test_command": "nosetests",
         "test_virtualenv": "C:\\Users\\sruiz\\Projects\\ManageQualityBetter\\env",
