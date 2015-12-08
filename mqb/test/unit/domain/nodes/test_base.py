@@ -104,8 +104,7 @@ class A_Process:
 class A_Role:
 
     def should_be_initializad(self):
-        person = Person("username", "user@company.com",
-                        fist)
+        person = Person("username", "user@company.com")
         role = Role("role", person)
 
-        assert
+        assert True

@@ -1,15 +1,15 @@
 from mqb.engine.domain.base import (
                                  Resource,
                                  Node,
-                                 Organization,
                                  Movement,
-                                 Process,
                                  Material,
                                  Information,
                                  Concept,
-                                 Person,
-                                 Machine,
                                  )
+from mqb.engine.domain.nodes.base import (
+                                          Person,
+                                          Machine,
+                                          Organization,)
 from mqb.engine.exceptions import IncorrectNodeClass
 from freezegun import freeze_time
 import datetime
@@ -92,24 +92,6 @@ class A_Movement:
 
         assert not self.destination.inbox
         assert movement.end == self.date
-
-    def should_start_with_an_initial_request(self):
-
-        process = Process(self.roles)
-        process.start(self.process_request, self.customer)
-
-        assert process.inbox
-        assert process.customer == self.customer
-        assert process.executions[0].source == self.customer
-        assert process.executions[0].destination == process
-
-    def should_assign_resource_to_child_node(self):
-        process = Process(self.roles)
-        process.start(self.process_request, self.customer)
-        process.assign(process.executions[0], "role1")
-
-        assert not self.roles["role1"].inbox
-        assert process.inbox
 
 
 class A_Concept:

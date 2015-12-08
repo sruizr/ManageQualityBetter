@@ -5,7 +5,6 @@ class Role(Node):
     """Decorator of node"""
     def __init__(self, key, decorated):
         Node.__init__(self, key)
-        self.name = name
         self.decorated = decorated
 
     def transfer(self):
